@@ -1,0 +1,44 @@
+{
+  "_comment": "Redigera denna fil för att uppdatera innehåll på hemsidan",
+
+  "instructor": {
+    "name": "Instruktör",
+    "description": "Kundalini Yoga-instruktör i Tungelsta",
+    "email": "kundalini@example.com",
+    "phone": ""
+  },
+
+  "location": {
+    "name": "Gamla Café Medmig",
+    "subtitle": "I fd Pingstkyrkan",
+    "address": "Rosvägen 2",
+    "postalCode": "137 91",
+    "city": "Tungelsta",
+    "mapUrl": "https://maps.apple.com/?address=Rosvagen%202,%20137%2091%20Tungelsta,%20Sweden"
+  },
+
+  "schedule": [
+    {
+      "day": "Tisdag",
+      "time": "18:30 - 20:00",
+      "title": "Kundalini Yoga",
+      "description": "Ett komplett pass med kriya, meditation och djup avslappning.",
+      "level": "Alla nivåer"
+    },
+    {
+      "day": "Torsdag",
+      "time": "09:30 - 11:00",
+      "title": "Kundalini Yoga - Morgon",
+      "description": "Starta dagen med energi och fokus. Perfekt för dig som vill börja dagen mjukt.",
+      "level": "Alla nivåer"
+    }
+  ],
+
+  "upcomingEvents": [
+  ],
+
+  "socialMedia": {
+    "facebook": "",
+    "instagram": ""
+  }
+}
