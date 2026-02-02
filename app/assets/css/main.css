@@ -1,136 +1,323 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&display=swap');
+/* Core Gym Fonts */
+@font-face {
+  font-family: 'Suisse BP Intl';
+  src: url('/fonts/SuisseBPIntl-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Suisse BP Intl';
+  src: url('/fonts/SuisseBPIntl-Antique.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Neue Montreal';
+  src: url('/fonts/NeueMontreal-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
 @layer base {
+  :root {
+    --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply font-sans text-text-primary bg-surface-cream antialiased;
+    @apply font-body bg-cream-50 text-forest;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-sage-200 text-sage-900;
+  }
+
+  /* Focus visible */
+  :focus-visible {
+    @apply outline-none ring-2 ring-sage-400 ring-offset-2 ring-offset-cream-50;
   }
 }
 
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+/* Typography utilities are defined in tailwind.config.js
+   Use the font-size utilities directly: text-display-xl, text-heading-lg, etc.
+   Combined with font-family utilities: font-display, font-body */
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
 @layer components {
-  /* Container - mobile first */
-  .container-yoga {
-    @apply w-full max-w-4xl mx-auto px-5;
+  .btn {
+    @apply inline-flex items-center justify-center gap-2
+           font-body font-semibold
+           transition-all duration-300 ease-smooth
+           active:scale-[0.97];
   }
 
-  /* Sektioner */
-  .section-padding {
-    @apply py-12 md:py-20;
-  }
-
-  /* Rubriker - rundare, mjukare */
-  .heading-xl {
-    @apply font-display text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight;
-  }
-
-  .heading-lg {
-    @apply font-display text-2xl md:text-3xl font-bold leading-tight;
-  }
-
-  .heading-md {
-    @apply font-display text-xl md:text-2xl font-semibold;
-  }
-
-  /* Text */
-  .text-body {
-    @apply text-base leading-relaxed text-text-secondary;
-  }
-
-  .text-body-sm {
-    @apply text-sm leading-relaxed text-text-muted;
-  }
-
-  /* Knappar - stora touch targets för mobil */
+  /* Primary - Filled sage */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-7 py-4
-           bg-kundalini-green text-white font-semibold
-           rounded-full transition-all duration-300
-           hover:bg-kundalini-green-dark hover:shadow-lg
-           active:scale-[0.98]
-           min-h-[52px] text-base;
+    @apply btn px-8 py-4
+           bg-sage-600 text-cream-50
+           rounded-full
+           hover:bg-sage-700 hover:shadow-soft-lg
+           text-body-sm tracking-wide;
   }
 
+  /* Secondary - Outlined */
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-7 py-4
-           border-2 border-kundalini-green text-kundalini-green-dark font-semibold
-           rounded-full transition-all duration-300
-           hover:bg-kundalini-green hover:text-white
-           active:scale-[0.98]
-           min-h-[52px] text-base;
+    @apply btn px-8 py-4
+           bg-transparent text-sage-700
+           border-2 border-sage-300
+           rounded-full
+           hover:bg-sage-100 hover:border-sage-400
+           text-body-sm tracking-wide;
   }
 
+  /* Soft - Tonal */
   .btn-soft {
-    @apply inline-flex items-center justify-center px-7 py-4
-           bg-kundalini-green-pale text-kundalini-green-dark font-semibold
-           rounded-full transition-all duration-300
-           hover:bg-kundalini-green-light
-           active:scale-[0.98]
-           min-h-[52px] text-base;
+    @apply btn px-8 py-4
+           bg-sage-100 text-sage-700
+           rounded-full
+           hover:bg-sage-200
+           text-body-sm tracking-wide;
   }
 
-  /* Cards - mjuka, runda */
+  /* Ghost */
+  .btn-ghost {
+    @apply btn px-6 py-3
+           text-sage-600
+           rounded-full
+           hover:bg-sage-100
+           text-body-sm;
+  }
+
+  /* Terra accent */
+  .btn-terra {
+    @apply btn px-8 py-4
+           bg-terra-500 text-cream-50
+           rounded-full
+           hover:bg-terra-600 hover:shadow-glow-terra
+           text-body-sm tracking-wide;
+  }
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+@layer components {
   .card {
-    @apply bg-white rounded-3xl p-6 md:p-8
-           border border-surface-muted/50
-           transition-all duration-300;
+    @apply bg-white rounded-4xl p-8
+           border border-cream-200
+           shadow-soft
+           transition-all duration-500 ease-smooth;
   }
 
   .card-hover {
-    @apply hover:shadow-lg hover:border-kundalini-green-light;
+    @apply hover:shadow-soft-lg hover:border-sage-200 hover:-translate-y-1;
   }
 
-  .card-green {
-    @apply bg-kundalini-green-pale rounded-3xl p-6 md:p-8
-           border border-kundalini-green-light/50;
+  .card-sage {
+    @apply bg-sage-50 rounded-4xl p-8
+           border border-sage-200;
   }
 
-  /* Dekorativa element */
-  .chip {
-    @apply inline-flex items-center gap-2 px-4 py-2
-           bg-kundalini-green-pale text-kundalini-green-dark
-           rounded-full text-sm font-medium;
+  .card-terra {
+    @apply bg-terra-50 rounded-4xl p-8
+           border border-terra-200;
   }
 
-  .divider {
-    @apply w-12 h-1 bg-kundalini-green rounded-full;
-  }
-
-  /* Lotus/symbol */
-  .symbol {
-    @apply text-kundalini-green;
+  .card-glass {
+    @apply bg-white/60 backdrop-blur-xl rounded-4xl p-8
+           border border-white/50
+           shadow-soft;
   }
 }
 
+/* ========================================
+   CHIPS & BADGES
+   ======================================== */
+
+@layer components {
+  .chip {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           bg-sage-100 text-sage-700
+           rounded-full
+           text-label font-medium;
+  }
+
+  .chip-terra {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           bg-terra-100 text-terra-700
+           rounded-full
+           text-label font-medium;
+  }
+
+  .chip-outline {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           border border-sage-300 text-sage-600
+           rounded-full
+           text-label font-medium;
+  }
+
+  .chip-terra {
+    @apply inline-flex items-center gap-2 px-4 py-2
+           bg-terra-100 text-terra-700
+           rounded-full
+           text-label font-medium;
+  }
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+
+@layer components {
+  .container-yoga {
+    @apply w-full max-w-6xl mx-auto px-6;
+  }
+
+  .container-narrow {
+    @apply w-full max-w-3xl mx-auto px-6;
+  }
+
+  .section {
+    @apply py-20 md:py-32;
+  }
+
+  .section-lg {
+    @apply py-24 md:py-40;
+  }
+}
+
+/* ========================================
+   DECORATIVE ELEMENTS
+   ======================================== */
+
+@layer components {
+  /* Organic blob shape */
+  .blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  /* Decorative line */
+  .line-accent {
+    @apply w-16 h-0.5 bg-gradient-to-r from-sage-400 to-sage-200 rounded-full;
+  }
+
+  /* Symbol styling */
+  .symbol {
+    @apply text-sage-500;
+  }
+
+  .symbol-lg {
+    @apply text-4xl md:text-5xl;
+  }
+}
+
+/* ========================================
+   GRADIENTS
+   ======================================== */
+
 @layer utilities {
-  /* Scroll för horisontella listor på mobil */
-  .scroll-x {
-    @apply flex overflow-x-auto gap-4 pb-4 -mx-5 px-5;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+  .bg-gradient-sage {
+    background: linear-gradient(135deg, #f7f9f7 0%, #eff3ef 50%, #e2e8e2 100%);
   }
 
-  .scroll-x > * {
-    scroll-snap-align: start;
-    flex-shrink: 0;
-  }
-
-  .scroll-x::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Gradient bakgrund */
-  .bg-gradient-soft {
-    background: linear-gradient(180deg, #faf9f7 0%, #f5f3f0 100%);
+  .bg-gradient-hero {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139, 158, 139, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(196, 132, 106, 0.05) 0%, transparent 50%),
+      linear-gradient(180deg, #faf8f5 0%, #f5f0ea 100%);
   }
 
   .bg-gradient-green {
-    background: linear-gradient(135deg, #e8f0e8 0%, #c8d9c7 100%);
+    background: linear-gradient(180deg, #f7f9f7 0%, #eff3ef 100%);
+  }
+
+  .bg-gradient-lavender {
+    background: linear-gradient(180deg, #faf8f5 0%, #f5f0ea 100%);
+  }
+
+  .bg-gradient-footer {
+    background: linear-gradient(180deg, #2d2a26 0%, #1c1b19 100%);
+  }
+
+  .bg-gradient-card {
+    background: linear-gradient(180deg, #fdfcfa 0%, #faf8f5 100%);
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@layer utilities {
+  /* Stagger delays for entrance animations */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  /* Opacity initial state for fade animations */
+  .opacity-0-initial {
+    opacity: 0;
+  }
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+@layer utilities {
+  .scrollbar-hidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ========================================
+   NOISE TEXTURE OVERLAY
+   ======================================== */
+
+@layer utilities {
+  .noise-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
   }
 }

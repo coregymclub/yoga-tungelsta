@@ -13,7 +13,7 @@ useHead({
     <section class="bg-gradient-green py-16 md:py-24">
       <div class="container-yoga">
         <div class="chip mb-6">
-          <span class="text-kundalini-green">✦</span>
+          <span class="text-yoga-green">✦</span>
           Om Kundalini
         </div>
         <h1 class="heading-xl text-text-primary mb-4">
@@ -73,8 +73,8 @@ useHead({
         <div class="max-w-2xl mx-auto space-y-4">
           <!-- Steg 1 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">1</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">1</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Öppning</h3>
@@ -86,8 +86,8 @@ useHead({
 
           <!-- Steg 2 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">2</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">2</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Uppvärmning</h3>
@@ -99,8 +99,8 @@ useHead({
 
           <!-- Steg 3 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">3</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">3</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Kriya</h3>
@@ -112,8 +112,8 @@ useHead({
 
           <!-- Steg 4 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">4</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">4</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Djup avslappning</h3>
@@ -125,8 +125,8 @@ useHead({
 
           <!-- Steg 5 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">5</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">5</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Meditation</h3>
@@ -138,8 +138,8 @@ useHead({
 
           <!-- Steg 6 -->
           <div class="card flex gap-5">
-            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-kundalini-green-pale flex items-center justify-center">
-              <span class="text-kundalini-green-dark font-bold">6</span>
+            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-yoga-green-pale flex items-center justify-center">
+              <span class="text-yoga-green-dark font-bold">6</span>
             </div>
             <div>
               <h3 class="font-semibold text-text-primary mb-1">Avslutning</h3>
@@ -193,8 +193,8 @@ useHead({
 
           <div class="grid sm:grid-cols-2 gap-4">
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-full bg-kundalini-green-pale flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-kundalini-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-8 h-8 rounded-full bg-yoga-green-pale flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-yoga-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -205,8 +205,8 @@ useHead({
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-full bg-kundalini-green-pale flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-kundalini-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-8 h-8 rounded-full bg-yoga-green-pale flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-yoga-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -217,8 +217,8 @@ useHead({
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-full bg-kundalini-green-pale flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-kundalini-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-8 h-8 rounded-full bg-yoga-green-pale flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-yoga-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -229,8 +229,8 @@ useHead({
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 rounded-full bg-kundalini-green-pale flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-kundalini-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="w-8 h-8 rounded-full bg-yoga-green-pale flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-yoga-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
@@ -258,7 +258,7 @@ useHead({
             </div>
             <div class="text-center sm:text-left">
               <h3 class="font-semibold text-text-primary mb-1">Mari Vuorela</h3>
-              <p class="text-kundalini-green-dark text-sm mb-3">Yogalärare sedan 1994</p>
+              <p class="text-yoga-green-dark text-sm mb-3">Yogalärare sedan 1994</p>
               <p class="text-body-sm mb-4">
                 Kundaliniyoga är en kraftfull och rolig yogaform. Kraftfull på så sätt att den
                 arbetar igenom alla dina dimensioner: kroppen, dess muskler, nervbanor och
@@ -270,7 +270,7 @@ useHead({
               </p>
               <a
                 href="mailto:mari.vuorela@icloud.com"
-                class="inline-flex items-center gap-2 text-kundalini-green-dark font-medium hover:underline text-sm"
+                class="inline-flex items-center gap-2 text-yoga-green-dark font-medium hover:underline text-sm"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

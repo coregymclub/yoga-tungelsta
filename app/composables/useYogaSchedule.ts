@@ -1,8 +1,37 @@
-// Hämta yoga-schema från Zoezi API - filtrerat på Tungelsta
+// Hämta yoga-schema från Zoezi API - alla platser
 const ZOEZI_API = 'https://coregymclub.zoezi.se/api/public/workout/get/all'
 
-// Tungelsta site ID
-const TUNGELSTA_SITE_ID = 2
+// Site IDs
+const SITES = {
+  vegastaden: 1,
+  tungelsta: 2,
+  vasterhaninge: 3,
+  egym: 4
+} as const
+
+type SiteKey = keyof typeof SITES
+
+// Plats-info
+export const LOCATIONS = {
+  tungelsta: {
+    id: 2,
+    name: 'Tungelsta',
+    shortName: 'Tungelsta',
+    description: 'Gamla Café Medmig - en vacker röd träkyrka',
+    address: 'Rosvägen 2, Tungelsta',
+    image: '/images/yoga-tungelsta-ylva.avif',
+    mapsUrl: 'https://maps.apple.com/?address=Rosvagen%202,%20137%2091%20Tungelsta,%20Sweden'
+  },
+  vegastaden: {
+    id: 1,
+    name: 'Core Vegastaden',
+    shortName: 'Vega',
+    description: 'Ljudisolerad yogasal på Core Gym Vegastaden',
+    address: 'Vega Allé 2, 136 57 Vega',
+    image: '/images/yoga-angela-movement.avif',
+    mapsUrl: 'https://maps.apple.com/?address=Vega%20Alle%202,%20136%2057%20Vega,%20Sweden'
+  }
+} as const
 
 interface WorkoutType {
   id: number
@@ -37,6 +66,7 @@ export interface YogaClass {
   id: number
   time: string
   endTime: string
+  duration: number // minutes
   name: string
   description: string
   date: string
@@ -46,6 +76,10 @@ export interface YogaClass {
   spotsLeft: number
   isKundalini: boolean
   isYin: boolean
+  isAshtanga: boolean
+  siteId: number
+  siteName: string
+  siteKey: SiteKey | null
 }
 
 interface DaySchedule {
@@ -81,12 +115,11 @@ function stripHtml(html: string): string {
     .trim()
 }
 
-function isYogaClass(name: string): boolean {
-  const lower = name.toLowerCase()
-  return lower.includes('yoga') ||
-         lower.includes('kundalini') ||
-         lower.includes('yin') ||
-         lower.includes('meditation')
+// Category ID 2 = Yoga/Mind&Body in Zoezi
+const YOGA_CATEGORY_ID = 2
+
+function isYogaClass(categoryId: number): boolean {
+  return categoryId === YOGA_CATEGORY_ID
 }
 
 function isKundalini(name: string): boolean {
@@ -96,6 +129,29 @@ function isKundalini(name: string): boolean {
 function isYinYoga(name: string): boolean {
   const lower = name.toLowerCase()
   return lower.includes('yin') || lower.includes('yinyoga')
+}
+
+function isAshtangaYoga(name: string): boolean {
+  return name.toLowerCase().includes('ashtanga')
+}
+
+function isVinyasa(name: string): boolean {
+  return name.toLowerCase().includes('vinyasa')
+}
+
+function getSiteKey(siteId: number): SiteKey | null {
+  for (const [key, id] of Object.entries(SITES)) {
+    if (id === siteId) return key as SiteKey
+  }
+  return null
+}
+
+function getSiteName(siteId: number): string {
+  const key = getSiteKey(siteId)
+  if (key && key in LOCATIONS) {
+    return LOCATIONS[key as keyof typeof LOCATIONS].name
+  }
+  return 'Okänd plats'
 }
 
 function getInstructorName(staffs: Staff[]): string | null {
@@ -138,16 +194,19 @@ export function useYogaSchedule() {
 
       const data = await response.json()
 
-      // Filter: Only Tungelsta (site_id 2) and yoga classes
+      // Filter: Tungelsta + Vegastaden, only yoga classes
       const yogaClasses: YogaClass[] = []
+      const yogaSiteIds = [SITES.tungelsta, SITES.vegastaden]
 
       for (const workout of data.workouts || []) {
-        // Only Tungelsta
-        if (workout.site_id !== TUNGELSTA_SITE_ID) continue
+        // Only yoga locations
+        if (!yogaSiteIds.includes(workout.site_id)) continue
 
-        // Only yoga classes
+        // Only yoga classes (category_id 2)
+        const categoryId = workout.workoutType?.category_id
+        if (!isYogaClass(categoryId)) continue
+
         const name = workout.workoutType?.name || ''
-        if (!isYogaClass(name)) continue
 
         const dateMatch = workout.startTime.match(/^(\d{4}-\d{2}-\d{2})/)
         if (!dateMatch) continue
@@ -160,10 +219,19 @@ export function useYogaSchedule() {
         const time = workout.startTime.substring(11, 16)
         const endTime = workout.endTime?.substring(11, 16) || ''
 
+        // Calculate duration in minutes
+        let duration = 60 // default
+        if (time && endTime) {
+          const [startH, startM] = time.split(':').map(Number)
+          const [endH, endM] = endTime.split(':').map(Number)
+          duration = (endH * 60 + endM) - (startH * 60 + startM)
+        }
+
         yogaClasses.push({
           id: workout.id,
           time,
           endTime,
+          duration,
           name: cleanText(name),
           description: stripHtml(workout.workoutType?.description || ''),
           date,
@@ -172,7 +240,11 @@ export function useYogaSchedule() {
           instructorImage: getInstructorImage(workout.staffs),
           spotsLeft: (workout.space || 0) - (workout.numBooked || 0),
           isKundalini: isKundalini(name),
-          isYin: isYinYoga(name)
+          isYin: isYinYoga(name),
+          isAshtanga: isAshtangaYoga(name),
+          siteId: workout.site_id,
+          siteName: getSiteName(workout.site_id),
+          siteKey: getSiteKey(workout.site_id)
         })
       }
 
@@ -209,14 +281,23 @@ export function useYogaSchedule() {
     }
   }
 
-  // Get upcoming classes (next 3)
-  const upcomingClasses = computed(() => allClasses.value.slice(0, 3))
+  // Get upcoming classes (next 5)
+  const upcomingClasses = computed(() => allClasses.value.slice(0, 5))
 
-  // Filter only kundalini
+  // Filter by yoga type
   const kundaliniClasses = computed(() => allClasses.value.filter(c => c.isKundalini))
-
-  // Filter only yin
   const yinClasses = computed(() => allClasses.value.filter(c => c.isYin))
+  const ashtangaClasses = computed(() => allClasses.value.filter(c => c.isAshtanga))
+
+  // Filter by location
+  const tungelstaClasses = computed(() => allClasses.value.filter(c => c.siteId === SITES.tungelsta))
+  const vegastadenClasses = computed(() => allClasses.value.filter(c => c.siteId === SITES.vegastaden))
+
+  // Get classes by site
+  const getClassesBySite = (siteKey: SiteKey) => {
+    const siteId = SITES[siteKey]
+    return computed(() => allClasses.value.filter(c => c.siteId === siteId))
+  }
 
   // Get unique yoga types with descriptions
   interface YogaType {
@@ -252,9 +333,15 @@ export function useYogaSchedule() {
     upcomingClasses,
     kundaliniClasses,
     yinClasses,
+    ashtangaClasses,
+    tungelstaClasses,
+    vegastadenClasses,
+    getClassesBySite,
     yogaTypes,
     loading,
     error,
-    fetchSchedule
+    fetchSchedule,
+    LOCATIONS,
+    SITES
   }
 }
