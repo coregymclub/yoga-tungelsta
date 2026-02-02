@@ -112,11 +112,9 @@ function openNews(item: NewsItem) {
     return
   }
 
-  // For retreat/event - show interest form
+  // For retreat/event - go to retreat page
   if (cats.includes('retreat') || title.includes('retreat') || title.includes('darkness') || title.includes('light')) {
-    interestEventTitle.value = item.title
-    interestEventDate.value = '22 mars 2026'
-    showInterestForm.value = true
+    navigateTo('/retreat')
     return
   }
 

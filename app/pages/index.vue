@@ -109,6 +109,9 @@ function getLocationColor(siteKey: string | null) {
 
 <template>
   <div>
+    <!-- Retreat Banner -->
+    <RetreatBanner />
+
     <!-- Hero - Clean centered with background image -->
     <section class="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-hero pt-24 md:pt-32">
       <!-- Background image -->

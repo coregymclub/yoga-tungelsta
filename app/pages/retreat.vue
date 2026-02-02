@@ -113,17 +113,13 @@ async function handleSubmit() {
   }
 }
 
-// Schedule items
+// Schedule items - simplified
 const schedule = [
   { time: '09:30', title: 'Dörrarna öppnas', desc: 'Ankomst och välkomstte' },
-  { time: '10:00', title: 'Vinyasa Flow', desc: 'Jenny – uppvärmande, flödande rörelse' },
-  { time: '10:45', title: 'Ashtanga', desc: 'Karoline – kraftfull och strukturerad praktik' },
-  { time: '11:30', title: 'Paus', desc: 'Vila och återhämtning' },
+  { time: '10:00', title: 'Yoga börjar', desc: 'Vinyasa Flow, Ashtanga, Yin Yoga & Kundalini' },
   { time: '12:00', title: 'Lunch', desc: 'Vegetarisk linssoppa' },
-  { time: '13:00', title: 'Yin Yoga', desc: 'Ylva – lugn och djupgående stretching' },
-  { time: '13:45', title: 'Kundalini Yoga', desc: 'Mari – andning och meditation' },
-  { time: '14:30', title: 'Djupavslappning', desc: 'Guidad avslappning och stillhet' },
-  { time: '15:00', title: 'Avslutning', desc: 'Te, kaffe och fika – avrundning och farväl' }
+  { time: '13:00', title: 'Eftermiddag', desc: 'Fortsatt yoga och djupavslappning' },
+  { time: '15:00', title: 'Avslutning', desc: 'Te, kaffe och fika' }
 ]
 
 // Instructors - only name and yoga style
@@ -179,8 +175,6 @@ const instructors = [
           på Core Annexet i Tungelsta
         </p>
 
-        <p class="hero-price">595 kr</p>
-
         <a href="#anmalan" class="hero-cta">
           <span>Gör en intresseanmälan</span>
           <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -188,9 +182,6 @@ const instructors = [
           </svg>
         </a>
 
-        <div class="hero-scroll-indicator">
-          <div class="scroll-line" />
-        </div>
       </div>
     </section>
 
@@ -321,7 +312,7 @@ const instructors = [
           <svg class="note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p>I priset ingår välkomstte, vegetarisk linssoppa till lunch samt te/kaffe med tilltugg på eftermiddagen.</p>
+          <p><strong>595 kr</strong> – I priset ingår välkomstte, vegetarisk linssoppa till lunch samt te/kaffe med tilltugg på eftermiddagen.</p>
         </div>
       </div>
     </section>
@@ -748,25 +739,6 @@ const instructors = [
   transform: translateY(3px);
 }
 
-.hero-scroll-indicator {
-  position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(180deg, var(--color-sage-light), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; transform: scaleY(1); }
-  50% { opacity: 0.8; transform: scaleY(1.2); }
-}
-
 /* ========================================
    INTRO SECTION
    ======================================== */
@@ -791,17 +763,18 @@ const instructors = [
 
 .intro-lead {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   color: var(--color-forest);
-  line-height: 1.4;
+  line-height: 1.3;
   margin-bottom: 2rem;
 }
 
 .intro-body {
   font-family: var(--font-body);
-  font-size: 1.125rem;
-  color: var(--color-sage);
+  font-size: 1.25rem;
+  color: var(--color-forest);
+  opacity: 0.85;
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
@@ -923,7 +896,7 @@ const instructors = [
 
 .timeline-time {
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--color-terra);
   margin-bottom: 0.25rem;
@@ -931,16 +904,17 @@ const instructors = [
 
 .timeline-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-forest);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .timeline-desc {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-sage);
+  font-size: 1.1rem;
+  color: var(--color-forest);
+  opacity: 0.8;
 }
 
 .schedule-note {
@@ -963,9 +937,10 @@ const instructors = [
 
 .schedule-note p {
   font-family: var(--font-body);
-  font-size: 0.9rem;
-  color: var(--color-sage);
-  line-height: 1.6;
+  font-size: 1.1rem;
+  color: var(--color-forest);
+  opacity: 0.85;
+  line-height: 1.7;
 }
 
 /* ========================================
@@ -1023,7 +998,7 @@ const instructors = [
 
 .instructor-name {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-forest);
   margin-bottom: 0.25rem;
@@ -1031,7 +1006,7 @@ const instructors = [
 
 .instructor-role {
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--color-terra);
   font-weight: 500;
 }
@@ -1109,8 +1084,9 @@ const instructors = [
 
 .venue-desc {
   font-family: var(--font-body);
-  font-size: 1.1rem;
-  color: var(--color-sage-light);
+  font-size: 1.2rem;
+  color: var(--color-cream);
+  opacity: 0.9;
   line-height: 1.8;
   margin-bottom: 1rem;
 }
@@ -1443,18 +1419,6 @@ const instructors = [
 }
 
 /* ========================================
-   HERO PRICE
-   ======================================== */
-.hero-price {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 700;
-  color: var(--color-gold);
-  margin-bottom: 2rem;
-  letter-spacing: 0.05em;
-}
-
-/* ========================================
    BEGINNER SECTION
    ======================================== */
 .beginner-section {
@@ -1490,7 +1454,7 @@ const instructors = [
 
 .beginner-text {
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   color: var(--color-forest);
   line-height: 1.8;
   margin-bottom: 1rem;
