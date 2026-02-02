@@ -16,6 +16,7 @@ const formData = ref({
   name: '',
   email: '',
   phone: '',
+  numberOfPeople: 1,
   message: ''
 })
 const isSubmitting = ref(false)
@@ -69,6 +70,7 @@ async function handleSubmit() {
       <p><strong>Event:</strong> Yoga Retreat 22 mars 2025, kl 10-15</p>
       <hr>
       <p><strong>Namn:</strong> ${formData.value.name}</p>
+      <p><strong>Antal personer:</strong> ${formData.value.numberOfPeople}</p>
       ${formData.value.email ? `<p><strong>E-post:</strong> ${formData.value.email}</p>` : ''}
       ${formData.value.phone ? `<p><strong>Telefon:</strong> ${formData.value.phone}</p>` : ''}
       ${formData.value.message ? `<hr><h3>Meddelande:</h3><p>${formData.value.message}</p>` : ''}
@@ -92,12 +94,13 @@ async function handleSubmit() {
     // Post to teamchat yoga room
     try {
       const contact = formData.value.phone || formData.value.email
+      const peopleText = formData.value.numberOfPeople > 1 ? ` – ${formData.value.numberOfPeople} personer` : ''
       await fetch('https://teamchat.coregym.club/api/terminal/post', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           room: 'yoga',
-          message: `🌅 Retreat-intresse: ${formData.value.name} (${contact})`
+          message: `🌅 Retreat-intresse: ${formData.value.name} (${contact})${peopleText}`
         })
       })
     } catch (e) {
@@ -113,12 +116,17 @@ async function handleSubmit() {
   }
 }
 
-// Schedule items - simplified
+// Schedule items - full program with flexible times
 const schedule = [
   { time: '09:30', title: 'Dörrarna öppnas', desc: 'Ankomst och välkomstte' },
-  { time: '10:00', title: 'Yoga börjar', desc: 'Vinyasa Flow, Ashtanga, Yin Yoga & Kundalini' },
+  { time: '10:00', title: 'Vinyasa Flow', desc: 'Jenny – uppvärmande, flödande rörelse' },
+  { time: '', title: 'Ashtanga', desc: 'Karoline – kraftfull och strukturerad praktik' },
+  { time: '', title: 'Paus', desc: 'Vila och återhämtning' },
   { time: '12:00', title: 'Lunch', desc: 'Vegetarisk linssoppa' },
-  { time: '13:00', title: 'Eftermiddag', desc: 'Fortsatt yoga och djupavslappning' },
+  { time: '13:00', title: 'Yin Yoga', desc: 'Ylva – lugn och djupgående stretching' },
+  { time: '', title: 'Kundalini Yoga', desc: 'Mari – andning och meditation' },
+  { time: '', title: 'Djupavslappning', desc: 'Guidad avslappning och stillhet' },
+  { time: '', title: 'Soundhealing', desc: 'Avslutande klangbad' },
   { time: '15:00', title: 'Avslutning', desc: 'Te, kaffe och fika' }
 ]
 
@@ -190,31 +198,21 @@ const instructors = [
          ======================================== -->
     <section class="intro-section">
       <div class="container-yoga">
-        <div class="intro-grid">
-          <div class="intro-text">
-            <p class="intro-lead">
-              När vintermörkret börjar släppa sitt grepp samlas vi för att välkomna ljuset.
-            </p>
-            <p class="intro-body">
-              <em>From Darkness to Light</em> är en yogadag där vi genom rörelse, andning
-              och stillhet utforskar vår inre resa – från det mörka och okända mot klarhet
-              och förnyelse.
-            </p>
-            <p class="intro-body">
-              Fyra erfarna yogalärare guidar dig genom olika stilar och praktiker.
-              Tillsammans skapar vi ett rum för transformation och gemenskap.
-            </p>
-          </div>
-          <div class="intro-visual">
-            <div class="intro-symbol">
-              <svg viewBox="0 0 100 100" fill="none">
-                <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="0.5" opacity="0.3"/>
-                <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
-                <circle cx="50" cy="50" r="20" stroke="currentColor" stroke-width="0.5" opacity="0.7"/>
-                <circle cx="50" cy="50" r="5" fill="currentColor" opacity="0.8"/>
-              </svg>
-            </div>
-          </div>
+        <div class="intro-content">
+          <p class="intro-lead">
+            När vintermörkret har släppt sitt grepp samlas vi för att välkomna ljuset.
+          </p>
+          <p class="intro-subtitle">
+            <em>From Darkness to Light</em> – Från mörker till ljus
+          </p>
+          <p class="intro-body">
+            En transformerande yogaresa. I vintertidens sista dagar bjuder vi in till en heldag
+            som för dig från tyngd till lätthet, från stress till stillhet.
+          </p>
+          <p class="intro-body">
+            Våra fyra erfarna instruktörer guidar dig genom dagens yogasessioner,
+            där varje del bygger på varandra och tar dig närmare ditt inre ljus.
+          </p>
         </div>
       </div>
     </section>
@@ -300,7 +298,7 @@ const instructors = [
             :style="{ animationDelay: `${index * 100}ms` }"
           >
             <div class="timeline-dot" />
-            <div class="timeline-time">{{ item.time }}</div>
+            <div v-if="item.time" class="timeline-time">{{ item.time }}</div>
             <div class="timeline-content">
               <h3 class="timeline-title">{{ item.title }}</h3>
               <p class="timeline-desc">{{ item.desc }}</p>
@@ -312,13 +310,13 @@ const instructors = [
           <svg class="note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p><strong>595 kr</strong> – I priset ingår välkomstte, vegetarisk linssoppa till lunch samt te/kaffe med tilltugg på eftermiddagen.</p>
+          <p>Tiderna är ungefärliga och kan justeras under dagen.</p>
         </div>
       </div>
     </section>
 
     <!-- ========================================
-         BEGINNER GUIDE - Lisa's intro
+         BEGINNER INFO
          ======================================== -->
     <section class="beginner-section">
       <div class="container-yoga">
@@ -332,10 +330,6 @@ const instructors = [
           <p class="beginner-text">
             Perfekt! Retreatet passar alla, oavsett om du är nybörjare eller erfaren yogi.
             Våra instruktörer guidar dig genom varje moment och anpassar övningarna efter din nivå.
-          </p>
-          <p class="beginner-text">
-            Lisa Brydner har skrivit en <a href="/guide" class="beginner-link">nybörjarguide</a>
-            som ger dig allt du behöver veta inför din första yogaupplevelse.
           </p>
         </div>
       </div>
@@ -383,9 +377,23 @@ const instructors = [
         <div class="form-header">
           <p class="section-label">BOKA DIN PLATS</p>
           <h2 class="section-title">Intresseanmälan</h2>
+
+          <!-- Price box -->
+          <div class="price-box">
+            <div class="price-amount">595 kr</div>
+            <div class="price-includes">
+              <p>I priset ingår:</p>
+              <ul>
+                <li>Alla yogapass & soundhealing</li>
+                <li>Välkomstte</li>
+                <li>Vegetarisk linssoppa till lunch</li>
+                <li>Te/kaffe med tilltugg</li>
+              </ul>
+            </div>
+          </div>
+
           <p class="form-intro">
             Fyll i formuläret nedan så hör vi av oss med mer information och bekräftelse.
-            Datumet 22 mars är preliminärt.
           </p>
         </div>
 
@@ -411,7 +419,7 @@ const instructors = [
             {{ errorMessage }}
           </div>
 
-          <div class="form-row">
+          <div class="form-row form-row-2">
             <div class="form-group">
               <label for="name" class="form-label">
                 Namn <span class="required">*</span>
@@ -425,6 +433,20 @@ const instructors = [
                 class="form-input"
                 placeholder="Ditt namn"
               />
+            </div>
+            <div class="form-group">
+              <label for="numberOfPeople" class="form-label">Antal personer</label>
+              <select
+                id="numberOfPeople"
+                v-model="formData.numberOfPeople"
+                class="form-input form-select"
+              >
+                <option :value="1">1 person</option>
+                <option :value="2">2 personer</option>
+                <option :value="3">3 personer</option>
+                <option :value="4">4 personer</option>
+                <option :value="5">5 personer</option>
+              </select>
             </div>
           </div>
 
@@ -748,17 +770,10 @@ const instructors = [
   position: relative;
 }
 
-.intro-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  .intro-grid {
-    grid-template-columns: 1.5fr 1fr;
-  }
+.intro-content {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .intro-lead {
@@ -767,7 +782,18 @@ const instructors = [
   font-weight: 700;
   color: var(--color-forest);
   line-height: 1.3;
+  margin-bottom: 1.5rem;
+}
+
+.intro-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: var(--color-terra);
   margin-bottom: 2rem;
+}
+
+.intro-subtitle em {
+  font-style: italic;
 }
 
 .intro-body {
@@ -783,23 +809,6 @@ const instructors = [
   color: var(--color-terra);
   font-style: normal;
   font-weight: 500;
-}
-
-.intro-visual {
-  display: flex;
-  justify-content: center;
-}
-
-.intro-symbol {
-  width: 200px;
-  height: 200px;
-  color: var(--color-sage);
-  animation: gentleRotate 60s linear infinite;
-}
-
-@keyframes gentleRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 
 /* ========================================
@@ -919,28 +928,30 @@ const instructors = [
 
 .schedule-note {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   max-width: 500px;
   margin: 3rem auto 0;
-  padding: 1.5rem;
+  padding: 1rem 1.5rem;
   background: white;
   border-radius: 1rem;
+  text-align: center;
 }
 
 .note-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   color: var(--color-sage);
   flex-shrink: 0;
 }
 
 .schedule-note p {
   font-family: var(--font-body);
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--color-forest);
-  opacity: 0.85;
-  line-height: 1.7;
+  opacity: 0.7;
+  line-height: 1.5;
 }
 
 /* ========================================
@@ -1203,9 +1214,66 @@ const instructors = [
 .form-intro {
   font-family: var(--font-body);
   font-size: 1rem;
-  color: var(--color-sage);
+  color: var(--color-forest);
+  opacity: 0.8;
   line-height: 1.7;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Price box */
+.price-box {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+  text-align: center;
+}
+
+.price-amount {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-terra);
+  margin-bottom: 1rem;
+}
+
+.price-includes {
+  text-align: left;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+.price-includes p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-forest);
+  margin-bottom: 0.75rem;
+}
+
+.price-includes ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.price-includes li {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--color-forest);
+  opacity: 0.85;
+  padding: 0.4rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.price-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-sage);
+  font-weight: 600;
 }
 
 .retreat-form {
@@ -1280,6 +1348,15 @@ const instructors = [
 .form-textarea {
   resize: none;
   min-height: 120px;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238b9e8b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 3rem;
+  cursor: pointer;
 }
 
 .form-hint {
