@@ -7,7 +7,7 @@
 useHead({
   title: 'From Darkness to Light – Yoga Retreat | 22 mars 2025',
   meta: [
-    { name: 'description', content: 'En dag av inre resa och transformation. Yoga retreat i träkyrkan i Tungelsta med fyra erfarna yogalärare. 22 mars kl 10-15.' }
+    { name: 'description', content: 'En dag av inre resa och transformation. Yoga retreat på Core Annexet i Tungelsta med fyra erfarna yogalärare. 22 mars kl 10-15. 595 kr.' }
   ]
 })
 
@@ -115,21 +115,23 @@ async function handleSubmit() {
 
 // Schedule items
 const schedule = [
-  { time: '09:30', title: 'Dörrarna öppnas', desc: 'Ankomst och välkomstfika' },
-  { time: '10:00', title: 'Inledning', desc: 'Samling och intention för dagen' },
-  { time: '10:30', title: 'Första passet', desc: 'Kundalini Yoga – väck energin' },
-  { time: '12:00', title: 'Lunch & vila', desc: 'Vegetarisk lunch ingår' },
-  { time: '13:00', title: 'Andra passet', desc: 'Yin Yoga – djup avslappning' },
-  { time: '14:30', title: 'Avslutning', desc: 'Meditation och delning' },
-  { time: '15:00', title: 'Ljuset', desc: 'Avrundning och farväl' }
+  { time: '09:30', title: 'Dörrarna öppnas', desc: 'Ankomst och välkomstte' },
+  { time: '10:00', title: 'Vinyasa Flow', desc: 'Jenny – uppvärmande, flödande rörelse' },
+  { time: '10:45', title: 'Ashtanga', desc: 'Karoline – kraftfull och strukturerad praktik' },
+  { time: '11:30', title: 'Paus', desc: 'Vila och återhämtning' },
+  { time: '12:00', title: 'Lunch', desc: 'Vegetarisk linssoppa' },
+  { time: '13:00', title: 'Yin Yoga', desc: 'Ylva – lugn och djupgående stretching' },
+  { time: '13:45', title: 'Kundalini Yoga', desc: 'Mari – andning och meditation' },
+  { time: '14:30', title: 'Djupavslappning', desc: 'Guidad avslappning och stillhet' },
+  { time: '15:00', title: 'Avslutning', desc: 'Te, kaffe och fika – avrundning och farväl' }
 ]
 
 // Instructors - only name and yoga style
 const instructors = [
-  { name: 'Mari', role: 'Kundalini Yoga' },
+  { name: 'Jenny', role: 'Vinyasa Flow' },
+  { name: 'Karoline', role: 'Ashtanga' },
   { name: 'Ylva', role: 'Yin Yoga' },
-  { name: 'Angela', role: 'Vinyasa Flow' },
-  { name: 'Denise', role: 'Slowmotions' }
+  { name: 'Mari', role: 'Kundalini Yoga' }
 ]
 </script>
 
@@ -174,8 +176,10 @@ const instructors = [
 
         <p class="hero-tagline">
           En dag av inre resa och transformation<br>
-          i den vackra träkyrkan i Tungelsta
+          på Core Annexet i Tungelsta
         </p>
+
+        <p class="hero-price">595 kr</p>
 
         <a href="#anmalan" class="hero-cta">
           <span>Gör en intresseanmälan</span>
@@ -231,7 +235,7 @@ const instructors = [
       <div class="venue-bg">
         <img
           src="/images/yoga-tungelsta-ylva.avif"
-          alt="Träkyrkan i Tungelsta"
+          alt="Core Annexet i Tungelsta"
           class="venue-image"
         />
         <div class="venue-overlay" />
@@ -240,14 +244,14 @@ const instructors = [
       <div class="container-yoga venue-content">
         <div class="venue-text">
           <p class="section-label section-label-light">PLATSEN</p>
-          <h2 class="venue-title">Träkyrkan i Tungelsta</h2>
+          <h2 class="venue-title">Core Annexet</h2>
           <p class="venue-desc">
-            I hjärtat av Tungelsta ligger en vacker gammal röd träkyrka. Tidigare hem
-            för Pingstkyrkan och Café Medmig, nu en fridfull oas för yoga och meditation.
+            Core Annexet är vår nya yogalokal i Tungelsta – en fridfull oas för yoga
+            och meditation med plats för grupper och events.
           </p>
           <p class="venue-desc">
-            De höga taken, de varma träväggarna och det mjuka ljuset skapar en unik
-            atmosfär – perfekt för en dag av inre arbete och transformation.
+            Här möts vi i en lugn miljö, perfekt för en dag av inre arbete
+            och transformation.
           </p>
 
           <div class="venue-details">
@@ -317,7 +321,31 @@ const instructors = [
           <svg class="note-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <p>Preliminärt schema. Vegetarisk lunch, fika och te ingår i priset.</p>
+          <p>I priset ingår välkomstte, vegetarisk linssoppa till lunch samt te/kaffe med tilltugg på eftermiddagen.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         BEGINNER GUIDE - Lisa's intro
+         ======================================== -->
+    <section class="beginner-section">
+      <div class="container-yoga">
+        <div class="beginner-content">
+          <div class="beginner-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h2 class="beginner-title">Ny på yoga?</h2>
+          <p class="beginner-text">
+            Perfekt! Retreatet passar alla, oavsett om du är nybörjare eller erfaren yogi.
+            Våra instruktörer guidar dig genom varje moment och anpassar övningarna efter din nivå.
+          </p>
+          <p class="beginner-text">
+            Lisa Brydner har skrivit en <a href="/guide" class="beginner-link">nybörjarguide</a>
+            som ger dig allt du behöver veta inför din första yogaupplevelse.
+          </p>
         </div>
       </div>
     </section>
@@ -1412,5 +1440,72 @@ const instructors = [
 
 .footer-email:hover {
   color: var(--color-gold);
+}
+
+/* ========================================
+   HERO PRICE
+   ======================================== */
+.hero-price {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--color-gold);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   BEGINNER SECTION
+   ======================================== */
+.beginner-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, var(--color-sage-light) 0%, var(--color-sage) 100%);
+}
+
+.beginner-content {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.beginner-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  color: var(--color-forest);
+}
+
+.beginner-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.beginner-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--color-forest);
+  margin-bottom: 1.5rem;
+}
+
+.beginner-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--color-forest);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.beginner-link {
+  color: var(--color-forest);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.3s;
+}
+
+.beginner-link:hover {
+  opacity: 0.7;
 }
 </style>
