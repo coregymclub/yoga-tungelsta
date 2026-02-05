@@ -124,9 +124,8 @@ const schedule = [
   { time: '', title: 'Paus', desc: 'Vila och återhämtning' },
   { time: '12:00', title: 'Lunch', desc: 'Vegetarisk linssoppa' },
   { time: '13:00', title: 'Yin Yoga', desc: 'Ylva – lugn och djupgående stretching' },
-  { time: '', title: 'Kundalini Yoga', desc: 'Mari – andning och meditation' },
-  { time: '', title: 'Djupavslappning', desc: 'Guidad avslappning och stillhet' },
-  { time: '', title: 'Soundhealing', desc: 'Avslutande klangbad' },
+  { time: '', title: 'Kundalini Yoga', desc: 'Mari – yogaövningar för medveten närvaro och balans' },
+  { time: '', title: 'Djupavslappning med soundhealing', desc: 'Guidad avslappning och klangbad' },
   { time: '15:00', title: 'Avslutning', desc: 'Te, kaffe och fika' }
 ]
 
