@@ -19,7 +19,7 @@ useHead({
           <!-- Profilbild -->
           <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto mb-8 ring-4 ring-white/50 shadow-2xl">
             <img
-              src="/images/instructor.png"
+              src="/images/instructors/mari.avif"
               alt="Mari Vuorela"
               class="w-full h-full object-cover"
             />
