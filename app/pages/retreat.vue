@@ -1074,12 +1074,6 @@ const instructors = [
   padding: 6rem 1.5rem;
 }
 
-@media (min-width: 768px) {
-  .venue-content {
-    padding: 6rem 0;
-  }
-}
-
 .venue-text {
   max-width: 500px;
 }
