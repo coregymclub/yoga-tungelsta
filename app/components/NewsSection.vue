@@ -146,6 +146,39 @@ function closeModal() {
   document.body.style.overflow = ''
 }
 
+// Get shareable URL for a news item
+function getShareUrl(item: NewsItem): string {
+  return `https://coregym.yoga/nyheter/${item.id}`
+}
+
+const copiedId = ref<string | null>(null)
+
+async function shareNews(item: NewsItem, event: Event) {
+  event.stopPropagation()
+  const url = getShareUrl(item)
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: item.title,
+        text: item.summary || '',
+        url
+      })
+      return
+    } catch (e) {
+      // User cancelled, fall through
+    }
+  }
+
+  try {
+    await navigator.clipboard.writeText(url)
+    copiedId.value = item.id
+    setTimeout(() => copiedId.value = null, 2000)
+  } catch (e) {
+    window.prompt('Kopiera l\u00e4nken:', url)
+  }
+}
+
 // Close on escape
 onMounted(() => {
   const handleEscape = (e: KeyboardEvent) => {
@@ -198,9 +231,23 @@ onMounted(() => {
                 {{ item.summary }}
               </p>
 
-              <span class="text-sage-600 font-medium group-hover:text-forest transition-colors">
-                Läs mer
-              </span>
+              <div class="flex items-center gap-4">
+                <span class="text-sage-600 font-medium group-hover:text-forest transition-colors">
+                  L&#228;s mer
+                </span>
+                <button
+                  @click="shareNews(item, $event)"
+                  class="share-btn"
+                  :title="copiedId === item.id ? 'L\u00e4nk kopierad!' : 'Dela'"
+                >
+                  <svg v-if="copiedId !== item.id" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  <svg v-else class="w-4 h-4 text-sage-600" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </article>
@@ -289,6 +336,22 @@ onMounted(() => {
                 class="prose prose-lg max-w-none text-sage-700 prose-headings:text-forest prose-a:text-sage-600"
                 v-html="selectedNews.content || selectedNews.summary"
               />
+
+              <!-- Share button in modal -->
+              <div class="mt-8 pt-6 border-t border-sage-100">
+                <button
+                  @click="shareNews(selectedNews!, $event)"
+                  class="share-btn-modal"
+                >
+                  <svg v-if="copiedId !== selectedNews!.id" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  <svg v-else class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>{{ copiedId === selectedNews!.id ? 'L&#228;nk kopierad!' : 'Dela nyhet' }}</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -332,5 +395,44 @@ onMounted(() => {
 .modal-leave-to {
   opacity: 0;
   transform: translateY(20px);
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(139, 158, 139, 0.1);
+  color: #8b9e8b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  background: rgba(139, 158, 139, 0.2);
+  color: #2d3a2d;
+}
+
+.share-btn-modal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: #faf8f5;
+  border: 1px solid #f0ebe3;
+  border-radius: 100px;
+  font-family: 'Neue Montreal', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #2d3a2d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-btn-modal:hover {
+  background: #f0ebe3;
 }
 </style>

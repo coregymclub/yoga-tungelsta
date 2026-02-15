@@ -4,11 +4,24 @@
  * Registration form + event info for kids 4-8 and their grown-ups
  */
 
-useHead({
-  title: 'Familjeyoga – Sportlov på Core Annexet | 25 februari',
-  meta: [
-    { name: 'description', content: 'Familjeyoga under sportlovet! Yogaglädje för barn 4-8 år med sina vuxna. Onsdag 25 februari kl 16-17 på Core Annexet i Tungelsta.' }
-  ]
+const pageTitle = 'Familjeyoga \u2013 Sportlov p\u00e5 Core Annexet | 25 februari'
+const pageDesc = 'Familjeyoga under sportlovet! Yogagl\u00e4dje f\u00f6r barn 4-8 \u00e5r med sina vuxna. Onsdag 25 februari kl 16-17 p\u00e5 Core Annexet i Tungelsta.'
+const pageUrl = 'https://coregym.yoga/familjeyoga'
+const pageImage = 'https://coregym.yoga/images/coregym-annexet.jpg'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDesc,
+  ogTitle: pageTitle,
+  ogDescription: pageDesc,
+  ogUrl: pageUrl,
+  ogImage: pageImage,
+  ogType: 'website',
+  ogSiteName: 'Core Gym Yoga',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDesc,
+  twitterImage: pageImage,
 })
 
 const formData = ref({
@@ -113,9 +126,31 @@ async function handleSubmit() {
     isSuccess.value = true
   } catch (error) {
     console.error('Submit error:', error)
-    errorMessage.value = 'Något gick fel. Försök igen eller kontakta oss direkt.'
+    errorMessage.value = 'N\u00e5got gick fel. F\u00f6rs\u00f6k igen eller kontakta oss direkt.'
   } finally {
     isSubmitting.value = false
+  }
+}
+
+const showCopied = ref(false)
+
+async function sharePage() {
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: pageTitle,
+        text: pageDesc,
+        url: pageUrl
+      })
+      return
+    } catch (e) { /* cancelled */ }
+  }
+  try {
+    await navigator.clipboard.writeText(pageUrl)
+    showCopied.value = true
+    setTimeout(() => showCopied.value = false, 2000)
+  } catch (e) {
+    window.prompt('Kopiera l\u00e4nken:', pageUrl)
   }
 }
 </script>
@@ -145,12 +180,22 @@ async function handleSubmit() {
           <span class="date-time">&middot; kl 16&#8211;17</span>
         </p>
 
-        <a href="#anmalan" class="hero-cta">
-          <span>Anm&#228;l dig</span>
-          <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </a>
+        <div class="hero-actions">
+          <a href="#anmalan" class="hero-cta">
+            <span>Anm&#228;l dig</span>
+            <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </a>
+          <button @click="sharePage" class="hero-share" :title="showCopied ? 'Kopierad!' : 'Dela'">
+            <svg v-if="!showCopied" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            <svg v-else class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </button>
+        </div>
       </div>
     </section>
 
@@ -557,6 +602,33 @@ async function handleSubmit() {
 
 .hero-cta:hover .cta-arrow {
   transform: translateY(3px);
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.hero-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 248, 245, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: var(--color-cream);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-smooth);
+}
+
+.hero-share:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(250, 248, 245, 0.5);
 }
 
 /* INFO */

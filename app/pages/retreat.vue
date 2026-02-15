@@ -4,11 +4,24 @@
  * A contemplative, immersive experience honoring the sacred journey
  */
 
-useHead({
-  title: 'From Darkness to Light – Yoga Retreat | 22 mars 2025',
-  meta: [
-    { name: 'description', content: 'En dag av inre resa och transformation. Yoga retreat på Core Annexet i Tungelsta med fyra erfarna yogalärare. 22 mars kl 10-15. 595 kr.' }
-  ]
+const pageTitle = 'From Darkness to Light \u2013 Yoga Retreat | 22 mars'
+const pageDesc = 'En dag av inre resa och transformation. Yoga retreat p\u00e5 Core Annexet i Tungelsta med fyra erfarna yogal\u00e4rare. 22 mars kl 10-15. 595 kr.'
+const pageUrl = 'https://coregym.yoga/retreat'
+const pageImage = 'https://coregym.yoga/images/yoga-tungelsta-ylva.avif'
+
+useSeoMeta({
+  title: pageTitle,
+  description: pageDesc,
+  ogTitle: pageTitle,
+  ogDescription: pageDesc,
+  ogUrl: pageUrl,
+  ogImage: pageImage,
+  ogType: 'website',
+  ogSiteName: 'Core Gym Yoga',
+  twitterCard: 'summary_large_image',
+  twitterTitle: pageTitle,
+  twitterDescription: pageDesc,
+  twitterImage: pageImage,
 })
 
 // Form state
