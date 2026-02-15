@@ -107,6 +107,17 @@ function openNews(item: NewsItem) {
   const cats = item.categories || []
   const title = item.title.toLowerCase()
 
+  // Generic link field - navigate to it if set
+  if ((item as any).link) {
+    const link = (item as any).link as string
+    if (link.startsWith('/') || link.startsWith('https://coregym.yoga')) {
+      navigateTo(link.replace('https://coregym.yoga', ''))
+    } else {
+      window.open(link, '_blank')
+    }
+    return
+  }
+
   if (cats.includes('barndans') || title.includes('barndans')) {
     window.open('https://coregym.club/barndans', '_blank')
     return
@@ -115,6 +126,12 @@ function openNews(item: NewsItem) {
   // For retreat/event - go to retreat page
   if (cats.includes('retreat') || title.includes('retreat') || title.includes('darkness') || title.includes('light')) {
     navigateTo('/retreat')
+    return
+  }
+
+  // Familjeyoga - go to dedicated page
+  if (title.includes('familjeyoga') || cats.includes('familjeyoga')) {
+    navigateTo('/familjeyoga')
     return
   }
 
